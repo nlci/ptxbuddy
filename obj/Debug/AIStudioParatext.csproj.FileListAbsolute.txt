@@ -1,4 +1,0 @@
-D:\Test Projects\AIStudioParatext\obj\Debug\AIStudioParatext.csproj.AssemblyReference.cache
-D:\Test Projects\AIStudioParatext\obj\Debug\AIStudioParatext.GeminiApiForm.resources
-D:\Test Projects\AIStudioParatext\obj\Debug\AIStudioParatext.csproj.GenerateResource.cache
-D:\Test Projects\AIStudioParatext\obj\Debug\AIStudioParatext.csproj.CoreCompileInputs.cache
