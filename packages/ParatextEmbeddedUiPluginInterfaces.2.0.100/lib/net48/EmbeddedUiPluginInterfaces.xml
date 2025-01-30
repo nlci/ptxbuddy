@@ -1,0 +1,215 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EmbeddedUiPluginInterfaces</name>
+    </assembly>
+    <members>
+        <member name="T:Paratext.PluginInterfaces.EmbeddedPluginControl">
+            <summary>
+            A control that can be passed to <see cref="M:Paratext.PluginInterfaces.IWindowPluginHost.ShowEmbeddedUi``1(``0,Paratext.PluginInterfaces.IProject)"/>to be embedded/docked
+            in a new child window in Paratext. Note to implementers: Derived concrete classes must have a default
+            constructor so they can be instantiated and restored from their saved states.
+            To get a Mega Menu to appear inside Paratext, add a MenuStrip to this control.
+            </summary>
+        </member>
+        <member name="M:Paratext.PluginInterfaces.EmbeddedPluginControl.OnAddedToParent(Paratext.PluginInterfaces.IPluginChildWindow,Paratext.PluginInterfaces.IWindowPluginHost,System.String)">
+            <summary>
+            Called when the control is added to a Paratext child window.
+            Will always be called before <see cref="M:Paratext.PluginInterfaces.EmbeddedPluginControl.DoLoad(Paratext.PluginInterfaces.IProgressInfo)"/> on the main UI thread.
+            </summary>
+            <param name="parent"></param>
+            <param name="host"></param>
+            <param name="state">When called as a part of restoring from a previous saved state, the state
+            (which came from the call to <see cref="M:Paratext.PluginInterfaces.EmbeddedPluginControl.GetState"/>) will be provided so the control can restore
+            itself. Otherwise it will be null and the control should appear in its default state.
+            Note that if a new version of this control has changed the way its state is saved, it
+            should still be able to restore from older versions of the state.</param>
+        </member>
+        <member name="M:Paratext.PluginInterfaces.EmbeddedPluginControl.GetState">
+            <summary>
+            Gets the current state of the control, from which the control must know how to
+            restore itself (when <see cref="M:Paratext.PluginInterfaces.EmbeddedPluginControl.OnAddedToParent(Paratext.PluginInterfaces.IPluginChildWindow,Paratext.PluginInterfaces.IWindowPluginHost,System.String)"/> is called).
+            </summary>
+        </member>
+        <member name="M:Paratext.PluginInterfaces.EmbeddedPluginControl.DoLoad(Paratext.PluginInterfaces.IProgressInfo)">
+            <summary>
+            Will always be called after <see cref="M:Paratext.PluginInterfaces.EmbeddedPluginControl.OnAddedToParent(Paratext.PluginInterfaces.IPluginChildWindow,Paratext.PluginInterfaces.IWindowPluginHost,System.String)"/> on a separate thread from the main UI thread.
+            Long-running tasks needed for loading should be done here.
+            The control's content will not be visible until this method returns.
+            </summary>
+        </member>
+        <member name="T:Paratext.PluginInterfaces.AbstractControlDescriptionProvider`2">
+            <summary>
+            Class to aid in designing abstract controls
+            </summary>
+        </member>
+        <member name="M:Paratext.PluginInterfaces.AbstractControlDescriptionProvider`2.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Paratext.PluginInterfaces.AbstractControlDescriptionProvider`2.GetReflectionType(System.Type,System.Object)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Paratext.PluginInterfaces.AbstractControlDescriptionProvider`2.CreateInstance(System.IServiceProvider,System.Type,System.Type[],System.Object[])">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Paratext.PluginInterfaces.IParatextWindowPlugin">
+            <summary>
+            Interface for plugins that run when a menu item is clicked and want to create an
+            embedded Paratext child window when clicked.
+            </summary>
+        </member>
+        <member name="P:Paratext.PluginInterfaces.IParatextWindowPlugin.PluginMenuEntries">
+            <summary>
+            List fo menu items to create for this plugin
+            </summary>
+        </member>
+        <member name="T:Paratext.PluginInterfaces.IParatextMainWindowAutomaticPlugin">
+            <summary>
+            Interface for plugins that run when the main window is first shown.
+            </summary>
+        </member>
+        <member name="M:Paratext.PluginInterfaces.IParatextMainWindowAutomaticPlugin.Run(Paratext.PluginInterfaces.IWindowPluginHost)">
+            <summary>
+            Method that the host will call when the Paratext main window opens.
+            </summary>
+            <param name="host">The plugin host</param>
+        </member>
+        <member name="T:Paratext.PluginInterfaces.ChildWindowReferenceChangedHandler">
+            <summary>
+            Handler for handing a reference change
+            </summary>
+            <param name="sender">The child window that triggered the event</param>
+            <param name="oldReference">The previous reference</param>
+            <param name="newReference">The new reference</param>
+        </member>
+        <member name="T:Paratext.PluginInterfaces.ChildWindowClosingHandler">
+            <summary>
+            Handler for handling a child window closing
+            </summary>
+            <param name="sender">The child window that triggered the event</param>
+            <param name="args"></param>
+        </member>
+        <member name="T:Paratext.PluginInterfaces.ProjectChangedHandler">
+            <summary>
+            Handler for handling a project changing on a child window
+            </summary>
+            <param name="sender">The child window that triggered the event</param>
+            <param name="newProject">The new project</param>
+        </member>
+        <member name="T:Paratext.PluginInterfaces.SaveRequestedHandler">
+            <summary>
+            Handler for handling save requested on a child window
+            </summary>
+            <param name="sender">The child window that triggered the event</param>
+        </member>
+        <member name="T:Paratext.PluginInterfaces.MegaMenuShowingHandler">
+            <summary>
+            Handler for handling the mega menu about to be shown on a child window.
+            </summary>
+            <param name="sender">The child window that triggered the event</param>
+        </member>
+        <member name="T:Paratext.PluginInterfaces.IPluginChildWindow">
+            <summary>
+            Represents the window owning an embedded control. Paratext creates one of these
+            at the request of a plugin when <see cref="M:Paratext.PluginInterfaces.IWindowPluginHost.ShowEmbeddedUi``1(``0,Paratext.PluginInterfaces.IProject)"/> is called.
+            </summary>
+        </member>
+        <member name="E:Paratext.PluginInterfaces.IPluginChildWindow.VerseRefChanged">
+            <summary>
+            Raised when the Scripture reference is changed.
+            </summary>
+        </member>
+        <member name="E:Paratext.PluginInterfaces.IPluginChildWindow.WindowClosing">
+            <summary>
+            Raised when preparing to close.
+            </summary>
+        </member>
+        <member name="E:Paratext.PluginInterfaces.IPluginChildWindow.SaveRequested">
+            <summary>
+            Raised when the user requests a save.
+            </summary>
+        </member>
+        <member name="E:Paratext.PluginInterfaces.IPluginChildWindow.ProjectChanged">
+            <summary>
+            Raised when the user changes the project for this window. Unless
+            <see cref="P:Paratext.PluginInterfaces.IPluginChildWindow.AllowUserToChangeProject"/> is false, the plugin should handle this event.
+            </summary>
+        </member>
+        <member name="E:Paratext.PluginInterfaces.IPluginChildWindow.MegaMenuShowing">
+            <summary>
+            Raised when the mega menu for this window is about to be shown.
+            </summary>
+        </member>
+        <member name="P:Paratext.PluginInterfaces.IPluginChildWindow.AllowUserToChangeProject">
+            <summary>
+            Set to false to keep the user from changing the project set on this window.
+            (Default is true.)
+            </summary>
+        </member>
+        <member name="P:Paratext.PluginInterfaces.IPluginChildWindow.Icon">
+            <summary>
+            Icon displayed in the titlebar of the hosting window.
+            </summary>
+        </member>
+        <member name="P:Paratext.PluginInterfaces.IPluginChildWindow.CurrentState">
+            <summary>
+            Gets the current state of the window.
+            </summary>
+        </member>
+        <member name="M:Paratext.PluginInterfaces.IPluginChildWindow.SetReference(Paratext.PluginInterfaces.IVerseRef)">
+            <summary>
+            A plugin should call this to notify its parent window if its notion of the current reference changes.
+            </summary>
+        </member>
+        <member name="M:Paratext.PluginInterfaces.IPluginChildWindow.SetTitle(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Sets the title of the window. It is generally advisable to keep this short.
+            An <see cref="T:Paratext.PluginInterfaces.EmbeddedPluginControl"/> should generally set this in <see cref="M:Paratext.PluginInterfaces.EmbeddedPluginControl.OnAddedToParent(Paratext.PluginInterfaces.IPluginChildWindow,Paratext.PluginInterfaces.IWindowPluginHost,System.String)"/>.
+            </summary>
+            <param name="title">The title</param>
+            <param name="appendReference">True to append the reference to the title in a standard way; false to omit it.</param>
+            <param name="appendProject">True to append the project to the title in a standard way; false to omit it.</param>
+        </member>
+        <member name="T:Paratext.PluginInterfaces.IWindowPluginHost">
+            <summary>
+            Plugin host for plugins that need to show embedded Paratext child windows
+            </summary>
+        </member>
+        <member name="M:Paratext.PluginInterfaces.IWindowPluginHost.ShowEmbeddedUi``1(``0,Paratext.PluginInterfaces.IProject)">
+            <summary>
+            Plugin calls this to ask the host to create a new child window for it
+            </summary>
+            <param name="control">The control to embed/dock in the new window.</param>
+            <param name="project">The project to display as selected for the new window</param>
+        </member>
+        <member name="T:Paratext.PluginInterfaces.WindowPluginMenuEntry">
+            <summary>
+            Represents a menu item that is to be inserted into an existing Paratext child window.
+            </summary>
+            <remarks>This differs from a <see cref="T:Paratext.PluginInterfaces.PluginMenuEntry"/> in that the <c>clicked</c> action for
+            this version gives a <see cref="T:Paratext.PluginInterfaces.IWindowPluginHost"/> to allow the embedding of a plugin control
+            into a Paratext child window.</remarks>
+        </member>
+        <member name="M:Paratext.PluginInterfaces.WindowPluginMenuEntry.#ctor(System.String,System.Action{Paratext.PluginInterfaces.IWindowPluginHost,Paratext.PluginInterfaces.IParatextChildState},Paratext.PluginInterfaces.PluginMenuLocation,System.String,Paratext.PluginInterfaces.CustomMenuLocation)">
+            <summary>
+            
+            </summary>
+            <param name="defaultText"></param>
+            <param name="clicked">The action to invoke when the menu item is clicked. The child state is the
+            state of the active child window at the time the menu item is clicked.</param>
+            <param name="location">A value that specifies a "standard" location where plugins might typically
+            go in the host application's menu structure.</param>
+            <param name="imagePath">The file path to an image to show for the menu. Path can be relative to the plugin folder.</param>
+            <param name="customLocation">If specified, indicates a custom location in the menu hierarchy (of
+            either the main window menu or a child window menu). If not specified or the path does not resolve to a
+            valid menu location, the <paramref name="location"/> will be used as a fallback. Custom locations are not supported
+            in context menus.</param>
+        </member>
+    </members>
+</doc>
