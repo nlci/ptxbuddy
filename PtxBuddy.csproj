@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B4D60075-5BC7-43E9-8602-4B59101689C2}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>PtxBuddy</RootNamespace>
+    <AssemblyName>PtxBuddy</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CorePluginInterfaces, Version=2.0.100.0, Culture=neutral, PublicKeyToken=583bede96b7c94a3, processorArchitecture=MSIL">
+      <HintPath>packages\ParatextCorePluginInterfaces.2.0.100\lib\netstandard2.0\CorePluginInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="EmbeddedUiPluginInterfaces, Version=2.0.100.0, Culture=neutral, PublicKeyToken=583bede96b7c94a3, processorArchitecture=MSIL">
+      <HintPath>packages\ParatextEmbeddedUiPluginInterfaces.2.0.100\lib\net48\EmbeddedUiPluginInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="JetBrains.Annotations, Version=4242.42.42.42, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>packages\JetBrains.Annotations.2024.3.0\lib\net20\JetBrains.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="Markdig, Version=0.40.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Markdig.0.40.0\lib\net462\Markdig.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PluginInterfaces, Version=2.0.100.0, Culture=neutral, PublicKeyToken=583bede96b7c94a3, processorArchitecture=MSIL">
+      <HintPath>packages\ParatextPluginInterfaces.2.0.100\lib\netstandard2.0\PluginInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Speech" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Book.cs" />
+    <Compile Include="FrmPtxbuddy.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FrmPtxbuddy.Designer.cs">
+      <DependentUpon>FrmPtxbuddy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmChatBoxDwn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmChatBoxDwn.Designer.cs">
+      <DependentUpon>FrmChatBoxDwn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JsonParser.cs" />
+    <Compile Include="MarkdownChatRenderer.cs" />
+    <Compile Include="MarkDownHelper.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PtxBuddy.cs" />
+    <Compile Include="PtxbuddySecurity.cs" />
+    <Compile Include="StringExtensions.cs" />
+    <EmbeddedResource Include="FrmPtxbuddy.resx">
+      <DependentUpon>FrmPtxbuddy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmChatBoxDwn.resx">
+      <DependentUpon>FrmChatBoxDwn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="bin\Debug\PtxBuddy.dll.config" />
+    <None Include="packages.config" />
+    <None Include="packages\JetBrains.Annotations.2024.3.0\.signature.p7s" />
+    <None Include="packages\JetBrains.Annotations.2024.3.0\JetBrains.Annotations.2024.3.0.nupkg" />
+    <None Include="packages\JetBrains.Annotations.2024.3.0\lib\netstandard1.0\JetBrains.Annotations.deps.json" />
+    <None Include="packages\JetBrains.Annotations.2024.3.0\lib\netstandard2.0\JetBrains.Annotations.deps.json" />
+    <None Include="packages\JetBrains.Annotations.2024.3.0\readme.md" />
+    <None Include="packages\Markdig.0.40.0\.signature.p7s" />
+    <None Include="packages\Markdig.0.40.0\Markdig.0.40.0.nupkg" />
+    <None Include="packages\Markdig.0.40.0\readme.md" />
+    <None Include="packages\Newtonsoft.Json.13.0.3\.signature.p7s" />
+    <None Include="packages\Newtonsoft.Json.13.0.3\LICENSE.md" />
+    <None Include="packages\Newtonsoft.Json.13.0.3\Newtonsoft.Json.13.0.3.nupkg" />
+    <None Include="packages\Newtonsoft.Json.13.0.3\README.md" />
+    <None Include="packages\ParatextCorePluginInterfaces.2.0.100\.signature.p7s" />
+    <None Include="packages\ParatextCorePluginInterfaces.2.0.100\ParatextCorePluginInterfaces.2.0.100.nupkg" />
+    <None Include="packages\ParatextEmbeddedUiPluginInterfaces.2.0.100\.signature.p7s" />
+    <None Include="packages\ParatextEmbeddedUiPluginInterfaces.2.0.100\ParatextEmbeddedUiPluginInterfaces.2.0.100.nupkg" />
+    <None Include="packages\ParatextPluginInterfaces.2.0.100\.signature.p7s" />
+    <None Include="packages\ParatextPluginInterfaces.2.0.100\ParatextPluginInterfaces.2.0.100.nupkg" />
+    <None Include="packages\System.Buffers.4.5.1\.signature.p7s" />
+    <None Include="packages\System.Buffers.4.5.1\lib\netcoreapp2.0\_._" />
+    <None Include="packages\System.Buffers.4.5.1\lib\uap10.0.16299\_._" />
+    <None Include="packages\System.Buffers.4.5.1\ref\netcoreapp2.0\_._" />
+    <None Include="packages\System.Buffers.4.5.1\ref\uap10.0.16299\_._" />
+    <None Include="packages\System.Buffers.4.5.1\System.Buffers.4.5.1.nupkg" />
+    <None Include="packages\System.Memory.4.5.5\.signature.p7s" />
+    <None Include="packages\System.Memory.4.5.5\lib\netcoreapp2.1\_._" />
+    <None Include="packages\System.Memory.4.5.5\ref\netcoreapp2.1\_._" />
+    <None Include="packages\System.Memory.4.5.5\System.Memory.4.5.5.nupkg" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\.signature.p7s" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\lib\MonoAndroid10\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\lib\MonoTouch10\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\lib\netcoreapp2.0\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\lib\uap10.0.16299\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\lib\xamarinios10\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\lib\xamarinmac20\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\lib\xamarintvos10\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\lib\xamarinwatchos10\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\ref\MonoAndroid10\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\ref\MonoTouch10\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\ref\netcoreapp2.0\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\ref\uap10.0.16299\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\ref\xamarinios10\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\ref\xamarinmac20\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\ref\xamarintvos10\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\ref\xamarinwatchos10\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\System.Numerics.Vectors.4.5.0.nupkg" />
+    <None Include="packages\System.Runtime.CompilerServices.Unsafe.4.5.3\.signature.p7s" />
+    <None Include="packages\System.Runtime.CompilerServices.Unsafe.4.5.3\System.Runtime.CompilerServices.Unsafe.4.5.3.nupkg" />
+    <None Include="packages\System.Speech.9.0.3\.signature.p7s" />
+    <None Include="packages\System.Speech.9.0.3\buildTransitive\net8.0\_._" />
+    <None Include="packages\System.Speech.9.0.3\buildTransitive\netcoreapp2.0\System.Speech.targets" />
+    <None Include="packages\System.Speech.9.0.3\lib\net462\_._" />
+    <None Include="packages\System.Speech.9.0.3\PACKAGE.md" />
+    <None Include="packages\System.Speech.9.0.3\System.Speech.9.0.3.nupkg" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\CorePluginInterfaces.dll" />
+    <Content Include="bin\Debug\EmbeddedUiPluginInterfaces.dll" />
+    <Content Include="bin\Debug\EmbeddedUiPluginInterfaces.xml" />
+    <Content Include="bin\Debug\JetBrains.Annotations.dll" />
+    <Content Include="bin\Debug\JetBrains.Annotations.xml" />
+    <Content Include="bin\Debug\Limit.txt" />
+    <Content Include="bin\Debug\Markdig.dll" />
+    <Content Include="bin\Debug\Markdig.xml" />
+    <Content Include="bin\Debug\Newtonsoft.Json.dll" />
+    <Content Include="bin\Debug\Newtonsoft.Json.xml" />
+    <Content Include="bin\Debug\PluginInterfaces.dll" />
+    <Content Include="bin\Debug\PtxBuddy.dll" />
+    <Content Include="bin\Debug\PtxBuddy.pdb" />
+    <Content Include="bin\Debug\System.Buffers.dll" />
+    <Content Include="bin\Debug\System.Buffers.xml" />
+    <Content Include="bin\Debug\System.Memory.dll" />
+    <Content Include="bin\Debug\System.Memory.xml" />
+    <Content Include="bin\Debug\System.Numerics.Vectors.dll" />
+    <Content Include="bin\Debug\System.Numerics.Vectors.xml" />
+    <Content Include="bin\Debug\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Content Include="bin\Debug\System.Runtime.CompilerServices.Unsafe.xml" />
+    <Content Include="Images\clip.png" />
+    <Content Include="Images\comment.png" />
+    <Content Include="Images\friends.png" />
+    <Content Include="Images\icon-cute-3648333108.gif" />
+    <Content Include="Images\icons8-chat.gif" />
+    <Content Include="Images\karaoke %281%29.png" />
+    <Content Include="Images\karaoke.png" />
+    <Content Include="Images\mic2.png" />
+    <Content Include="Images\newchat.png" />
+    <Content Include="Images\paperclip.png" />
+    <Content Include="Images\pngwing.com.png" />
+    <Content Include="Images\screen1.png" />
+    <Content Include="Images\send1.png" />
+    <Content Include="Images\sendA.png" />
+    <Content Include="Images\sendB.png" />
+    <Content Include="packages\JetBrains.Annotations.2024.3.0\icon.png" />
+    <Content Include="packages\JetBrains.Annotations.2024.3.0\lib\net20\JetBrains.Annotations.dll" />
+    <Content Include="packages\JetBrains.Annotations.2024.3.0\lib\net20\JetBrains.Annotations.xml" />
+    <Content Include="packages\JetBrains.Annotations.2024.3.0\lib\netstandard1.0\JetBrains.Annotations.dll" />
+    <Content Include="packages\JetBrains.Annotations.2024.3.0\lib\netstandard1.0\JetBrains.Annotations.xml" />
+    <Content Include="packages\JetBrains.Annotations.2024.3.0\lib\netstandard2.0\JetBrains.Annotations.dll" />
+    <Content Include="packages\JetBrains.Annotations.2024.3.0\lib\netstandard2.0\JetBrains.Annotations.xml" />
+    <Content Include="packages\JetBrains.Annotations.2024.3.0\lib\portable40-net40+sl5+win8+wp8+wpa81\JetBrains.Annotations.dll" />
+    <Content Include="packages\JetBrains.Annotations.2024.3.0\lib\portable40-net40+sl5+win8+wp8+wpa81\JetBrains.Annotations.xml" />
+    <Content Include="packages\Markdig.0.40.0\lib\net462\Markdig.dll" />
+    <Content Include="packages\Markdig.0.40.0\lib\net462\Markdig.xml" />
+    <Content Include="packages\Markdig.0.40.0\lib\net8.0\Markdig.dll" />
+    <Content Include="packages\Markdig.0.40.0\lib\net8.0\Markdig.xml" />
+    <Content Include="packages\Markdig.0.40.0\lib\net9.0\Markdig.dll" />
+    <Content Include="packages\Markdig.0.40.0\lib\net9.0\Markdig.xml" />
+    <Content Include="packages\Markdig.0.40.0\lib\netstandard2.0\Markdig.dll" />
+    <Content Include="packages\Markdig.0.40.0\lib\netstandard2.0\Markdig.xml" />
+    <Content Include="packages\Markdig.0.40.0\lib\netstandard2.1\Markdig.dll" />
+    <Content Include="packages\Markdig.0.40.0\lib\netstandard2.1\Markdig.xml" />
+    <Content Include="packages\Markdig.0.40.0\markdig.png" />
+    <Content Include="packages\Newtonsoft.Json.13.0.3\lib\net20\Newtonsoft.Json.dll" />
+    <Content Include="packages\Newtonsoft.Json.13.0.3\lib\net20\Newtonsoft.Json.xml" />
+    <Content Include="packages\Newtonsoft.Json.13.0.3\lib\net35\Newtonsoft.Json.dll" />
+    <Content Include="packages\Newtonsoft.Json.13.0.3\lib\net35\Newtonsoft.Json.xml" />
+    <Content Include="packages\Newtonsoft.Json.13.0.3\lib\net40\Newtonsoft.Json.dll" />
+    <Content Include="packages\Newtonsoft.Json.13.0.3\lib\net40\Newtonsoft.Json.xml" />
+    <Content Include="packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll" />
+    <Content Include="packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.xml" />
+    <Content Include="packages\Newtonsoft.Json.13.0.3\lib\net6.0\Newtonsoft.Json.dll" />
+    <Content Include="packages\Newtonsoft.Json.13.0.3\lib\net6.0\Newtonsoft.Json.xml" />
+    <Content Include="packages\Newtonsoft.Json.13.0.3\lib\netstandard1.0\Newtonsoft.Json.dll" />
+    <Content Include="packages\Newtonsoft.Json.13.0.3\lib\netstandard1.0\Newtonsoft.Json.xml" />
+    <Content Include="packages\Newtonsoft.Json.13.0.3\lib\netstandard1.3\Newtonsoft.Json.dll" />
+    <Content Include="packages\Newtonsoft.Json.13.0.3\lib\netstandard1.3\Newtonsoft.Json.xml" />
+    <Content Include="packages\Newtonsoft.Json.13.0.3\lib\netstandard2.0\Newtonsoft.Json.dll" />
+    <Content Include="packages\Newtonsoft.Json.13.0.3\lib\netstandard2.0\Newtonsoft.Json.xml" />
+    <Content Include="packages\Newtonsoft.Json.13.0.3\packageIcon.png" />
+    <Content Include="packages\ParatextCorePluginInterfaces.2.0.100\lib\netstandard2.0\CorePluginInterfaces.dll" />
+    <Content Include="packages\ParatextEmbeddedUiPluginInterfaces.2.0.100\lib\net48\EmbeddedUiPluginInterfaces.dll" />
+    <Content Include="packages\ParatextEmbeddedUiPluginInterfaces.2.0.100\lib\net48\EmbeddedUiPluginInterfaces.xml" />
+    <Content Include="packages\ParatextPluginInterfaces.2.0.100\lib\netstandard2.0\PluginInterfaces.dll" />
+    <Content Include="packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll" />
+    <Content Include="packages\System.Buffers.4.5.1\lib\net461\System.Buffers.xml" />
+    <Content Include="packages\System.Buffers.4.5.1\lib\netstandard1.1\System.Buffers.dll" />
+    <Content Include="packages\System.Buffers.4.5.1\lib\netstandard1.1\System.Buffers.xml" />
+    <Content Include="packages\System.Buffers.4.5.1\lib\netstandard2.0\System.Buffers.dll" />
+    <Content Include="packages\System.Buffers.4.5.1\lib\netstandard2.0\System.Buffers.xml" />
+    <Content Include="packages\System.Buffers.4.5.1\LICENSE.TXT" />
+    <Content Include="packages\System.Buffers.4.5.1\ref\net45\System.Buffers.dll" />
+    <Content Include="packages\System.Buffers.4.5.1\ref\net45\System.Buffers.xml" />
+    <Content Include="packages\System.Buffers.4.5.1\ref\netstandard1.1\System.Buffers.dll" />
+    <Content Include="packages\System.Buffers.4.5.1\ref\netstandard1.1\System.Buffers.xml" />
+    <Content Include="packages\System.Buffers.4.5.1\ref\netstandard2.0\System.Buffers.dll" />
+    <Content Include="packages\System.Buffers.4.5.1\ref\netstandard2.0\System.Buffers.xml" />
+    <Content Include="packages\System.Buffers.4.5.1\THIRD-PARTY-NOTICES.TXT" />
+    <Content Include="packages\System.Buffers.4.5.1\useSharedDesignerContext.txt" />
+    <Content Include="packages\System.Buffers.4.5.1\version.txt" />
+    <Content Include="packages\System.Memory.4.5.5\lib\net461\System.Memory.dll" />
+    <Content Include="packages\System.Memory.4.5.5\lib\net461\System.Memory.xml" />
+    <Content Include="packages\System.Memory.4.5.5\lib\netstandard1.1\System.Memory.dll" />
+    <Content Include="packages\System.Memory.4.5.5\lib\netstandard1.1\System.Memory.xml" />
+    <Content Include="packages\System.Memory.4.5.5\lib\netstandard2.0\System.Memory.dll" />
+    <Content Include="packages\System.Memory.4.5.5\lib\netstandard2.0\System.Memory.xml" />
+    <Content Include="packages\System.Memory.4.5.5\LICENSE.TXT" />
+    <Content Include="packages\System.Memory.4.5.5\THIRD-PARTY-NOTICES.TXT" />
+    <Content Include="packages\System.Memory.4.5.5\useSharedDesignerContext.txt" />
+    <Content Include="packages\System.Memory.4.5.5\version.txt" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.xml" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\lib\netstandard1.0\System.Numerics.Vectors.dll" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\lib\netstandard1.0\System.Numerics.Vectors.xml" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\lib\netstandard2.0\System.Numerics.Vectors.dll" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\lib\netstandard2.0\System.Numerics.Vectors.xml" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\lib\portable-net45+win8+wp8+wpa81\System.Numerics.Vectors.dll" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\lib\portable-net45+win8+wp8+wpa81\System.Numerics.Vectors.xml" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\LICENSE.TXT" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\ref\net45\System.Numerics.Vectors.dll" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\ref\net45\System.Numerics.Vectors.xml" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\ref\net46\System.Numerics.Vectors.dll" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\ref\net46\System.Numerics.Vectors.xml" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\ref\netstandard1.0\System.Numerics.Vectors.dll" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\ref\netstandard1.0\System.Numerics.Vectors.xml" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\ref\netstandard2.0\System.Numerics.Vectors.dll" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\ref\netstandard2.0\System.Numerics.Vectors.xml" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\THIRD-PARTY-NOTICES.TXT" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\useSharedDesignerContext.txt" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\version.txt" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.xml" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\netcoreapp2.0\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\netcoreapp2.0\System.Runtime.CompilerServices.Unsafe.xml" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.xml" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.xml" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.4.5.3\LICENSE.TXT" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.4.5.3\ref\net461\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.4.5.3\ref\net461\System.Runtime.CompilerServices.Unsafe.xml" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.4.5.3\ref\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.4.5.3\ref\netstandard1.0\System.Runtime.CompilerServices.Unsafe.xml" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.4.5.3\ref\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.4.5.3\ref\netstandard2.0\System.Runtime.CompilerServices.Unsafe.xml" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.4.5.3\THIRD-PARTY-NOTICES.TXT" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.4.5.3\useSharedDesignerContext.txt" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.4.5.3\version.txt" />
+    <Content Include="packages\System.Speech.9.0.3\Icon.png" />
+    <Content Include="packages\System.Speech.9.0.3\lib\net8.0\System.Speech.dll" />
+    <Content Include="packages\System.Speech.9.0.3\lib\net8.0\System.Speech.xml" />
+    <Content Include="packages\System.Speech.9.0.3\lib\net9.0\System.Speech.dll" />
+    <Content Include="packages\System.Speech.9.0.3\lib\net9.0\System.Speech.xml" />
+    <Content Include="packages\System.Speech.9.0.3\lib\netstandard2.0\System.Speech.dll" />
+    <Content Include="packages\System.Speech.9.0.3\lib\netstandard2.0\System.Speech.xml" />
+    <Content Include="packages\System.Speech.9.0.3\LICENSE.TXT" />
+    <Content Include="packages\System.Speech.9.0.3\runtimes\win\lib\net8.0\System.Speech.dll" />
+    <Content Include="packages\System.Speech.9.0.3\runtimes\win\lib\net8.0\System.Speech.xml" />
+    <Content Include="packages\System.Speech.9.0.3\runtimes\win\lib\net9.0\System.Speech.dll" />
+    <Content Include="packages\System.Speech.9.0.3\runtimes\win\lib\net9.0\System.Speech.xml" />
+    <Content Include="packages\System.Speech.9.0.3\THIRD-PARTY-NOTICES.TXT" />
+    <Content Include="packages\System.Speech.9.0.3\useSharedDesignerContext.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
