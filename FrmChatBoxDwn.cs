@@ -18,6 +18,9 @@ using Newtonsoft.Json.Linq;
 using System.Speech.Recognition;
 using System.Threading.Tasks;
 using System.Globalization;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Button = System.Windows.Forms.Button;
+using ToolTip = System.Windows.Forms.ToolTip;
 
 
 namespace PtxBuddy
@@ -296,11 +299,11 @@ namespace PtxBuddy
             lblTyping.Location = new Point(10, 5);
             lblTyping.AutoSize = true;
             typingIndicatorPanel.Controls.Add(lblTyping);
-
+           // typingIndicatorPanel.Location = new Point(10, chatArea.Height - typingIndicatorPanel.Height);
 
             chatArea.Controls.Add(typingIndicatorPanel);
 
-            typingIndicatorPanel.Location = new Point(0, chatArea.Height - typingIndicatorPanel.Height);
+           
         }
 
 
@@ -321,10 +324,10 @@ namespace PtxBuddy
             lblTyping.Text = $"AI is typing{dots}";
 
 
-            typingIndicatorPanel.Location = new Point(
-                10,
-                chatArea.VerticalScroll.Value + chatArea.Height - typingIndicatorPanel.Height - 10
-            );
+            //typingIndicatorPanel.Location = new Point(
+            //    10,
+            //    chatArea.VerticalScroll.Value + chatArea.Height - typingIndicatorPanel.Height - 10
+            //);
         }
 
 
@@ -419,7 +422,7 @@ namespace PtxBuddy
 
             chatArea.Controls.Add(wrapperPanel);
             chatArea.ScrollControlIntoView(wrapperPanel);
-
+            chatArea.ScrollControlIntoView(typingIndicatorPanel);
 
 
         }
@@ -989,14 +992,14 @@ namespace PtxBuddy
                     typingTimer.Start();
                     UpdateTypingIndicatorPosition();
 
-                    string webhookUrl = "https://ptxbuddy.app.n8n.cloud/webhook-test/ptxbuddy";
-                    // string webhookUrl = "https://jac777thomas.app.n8n.cloud/webhook/3b692d4e-2c9e-4240-b1dd-3baf7e6f5272";
+                   // string webhookUrl = "https://ptxbuddy.app.n8n.cloud/webhook-test/ptxbuddy";
+                     string webhookUrl = "https://jac777thomas.app.n8n.cloud/webhook/3b692d4e-2c9e-4240-b1dd-3baf7e6f5272";
 
                     // string webhookUrl = "https://jacob777thomas.app.n8n.cloud/webhook/Mywebhook";
 
 
                     string apiKey = "pbuddy4P9.4";
-                    string headerName = "Ptxbuddy";
+                    string headerName = "MyHeader";
 
                     string queryText = txtPrompt.Text;
                     string sys_prompt = messageLabel.Text;
@@ -1038,6 +1041,12 @@ namespace PtxBuddy
 
                             // Add to chat area with Markdown formatting
                             AddChatBubble("AI", message, Color.LightGray);
+                            txtPrompt.Text = "";
+                            if (string.IsNullOrWhiteSpace(txtPrompt.Text))
+                            {
+                                txtPrompt.Text = "Type here...";
+                                txtPrompt.ForeColor = Color.Gray;
+                            }
                         }
                     }
                     catch (Exception ex)
@@ -1062,14 +1071,19 @@ namespace PtxBuddy
         {
             if (!typingIndicatorPanel.Visible) return;
 
-            // Position just above the bottom, considering scroll offset
-            int y = chatArea.DisplayRectangle.Height > chatArea.ClientSize.Height
-                ? chatArea.DisplayRectangle.Bottom - typingIndicatorPanel.Height - 10
-                : chatArea.ClientSize.Height - typingIndicatorPanel.Height - 10;
+            // Place it at the bottom of the last control (i.e., after the last bubble)
+            Control last = chatArea.Controls.Cast<Control>()
+                                 .Where(c => c.Visible && c != typingIndicatorPanel)
+                                 .OrderByDescending(c => c.Bottom)
+                                 .FirstOrDefault();
+
+            int y = last != null ? last.Bottom + 10 : 10;
 
             typingIndicatorPanel.Location = new Point(10, y);
             typingIndicatorPanel.BringToFront();
         }
+
+
         private void FrmTestChat_Load(object sender, EventArgs e)
         {
             txtPrompt.Focus();
@@ -1243,81 +1257,89 @@ namespace PtxBuddy
 
         private void btnMic_Click(object sender, EventArgs e)
         {
-            //    Label listeningLabel = new Label
-            //    {
-            //        Text = "🎙️ Listening...",
-            //        AutoSize = true,
-            //        Font = new Font("Segoe UI", 10, FontStyle.Italic),
-            //        ForeColor = Color.DarkGray,
-            //        BackColor = Color.Transparent,
-            //        Location = new Point(btnMic.Left, btnMic.Top - 25), // adjust as needed
-            //        Visible = false
-            //    };
-            //    this.Controls.Add(listeningLabel);
-            //    if (recognizer == null)
-            //    {
-            //        listeningLabel.Visible = true;
-            //        recognizer = new SpeechRecognitionEngine();
-            //        recognizer.SetInputToDefaultAudioDevice();
-            //        recognizer.LoadGrammar(new DictationGrammar());
-
-            //        recognizer.SpeechRecognized += (s, args) =>
-            //        {
-            //            string spokenText = args.Result.Text;
-            //            Invoke(new Action(() =>
-            //            {
-            //                txtPrompt.Text = spokenText; // or auto-send
-            //                txtPrompt.Focus();
-            //            }));
-            //        };
-
-            //        recognizer.RecognizeCompleted += (s, args) =>
-            //        {
-            //            recognizer.Dispose();
-            //            recognizer = null;
-            //        };
-            //    }
-
-            //    try
-            //    {
-            //        recognizer.RecognizeAsync(RecognizeMode.Single);
-            //    }
-            //    catch (InvalidOperationException)
-            //    {
-            //        // Already listening
-            //    }
-            //  //  await Task.Delay(3000); // or after SpeechRecognized event
-            //    listeningLabel.Visible = false;
-            //}
-        }
-
-        public class RoundedPanel : FlowLayoutPanel
-        {
-            public int CornerRadius { get; set; } = 20;
-
-            protected override void OnResize(EventArgs e)
+            Label listeningLabel = new Label
             {
-                base.OnResize(e);
-                Invalidate(); // Force redraw when resized
-            }
-
-            protected override void OnPaint(PaintEventArgs e)
+                Text = "🎙️ Listening...",
+                AutoSize = true,
+                Font = new Font("Segoe UI", 10, FontStyle.Italic),
+                ForeColor = Color.DarkGray,
+                BackColor = Color.Transparent,
+                Location = new Point(btnMic.Left, btnMic.Top - 25), // adjust as needed
+                Visible = false
+            };
+            this.Controls.Add(listeningLabel);
+            if (recognizer == null)
             {
-                base.OnPaint(e);
-                using (GraphicsPath path = new GraphicsPath())
+                listeningLabel.Visible = true;
+                recognizer = new SpeechRecognitionEngine();
+                recognizer.SetInputToDefaultAudioDevice();
+                recognizer.LoadGrammar(new DictationGrammar());
+
+                recognizer.SpeechRecognized += (s, args) =>
                 {
-                    path.AddArc(0, 0, CornerRadius, CornerRadius, 180, 90);
-                    path.AddArc(Width - CornerRadius, 0, CornerRadius, CornerRadius, 270, 90);
-                    path.AddArc(Width - CornerRadius, Height - CornerRadius, CornerRadius, CornerRadius, 0, 90);
-                    path.AddArc(0, Height - CornerRadius, CornerRadius, CornerRadius, 90, 90);
-                    path.CloseFigure();
+                    string spokenText = args.Result.Text;
+                    Invoke(new Action(() =>
+                    {
+                        txtPrompt.Text = spokenText; // or auto-send
+                        txtPrompt.Focus();
+                    }));
+                };
 
-                    e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-                    e.Graphics.FillPath(new SolidBrush(BackColor), path);
-                }
+                recognizer.RecognizeCompleted += (s, args) =>
+                {
+                    recognizer.Dispose();
+                    recognizer = null;
+                };
             }
+
+            try
+            {
+                recognizer.RecognizeAsync(RecognizeMode.Single);
+            }
+            catch (InvalidOperationException)
+            {
+                // Already listening
+            }
+            //  await Task.Delay(3000); // or after SpeechRecognized event
+            listeningLabel.Visible = false;
         }
 
+        private void txtPrompt_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && e.Control)
+            {
+                e.SuppressKeyPress = true;
+                btnAiCommunicator.PerformClick();
+            }
+        }
     }
+
+    public class RoundedPanel : FlowLayoutPanel
+    {
+        public int CornerRadius { get; set; } = 20;
+
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+            Invalidate(); // Force redraw when resized
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            using (GraphicsPath path = new GraphicsPath())
+            {
+                path.AddArc(0, 0, CornerRadius, CornerRadius, 180, 90);
+                path.AddArc(Width - CornerRadius, 0, CornerRadius, CornerRadius, 270, 90);
+                path.AddArc(Width - CornerRadius, Height - CornerRadius, CornerRadius, CornerRadius, 0, 90);
+                path.AddArc(0, Height - CornerRadius, CornerRadius, CornerRadius, 90, 90);
+                path.CloseFigure();
+
+                e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                e.Graphics.FillPath(new SolidBrush(BackColor), path);
+            }
+        }
+    }
+
 }
 

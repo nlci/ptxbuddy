@@ -15,7 +15,7 @@ using System.Threading;
 using System.Drawing.Imaging;
 using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
-//using System.Speech.Recognition;
+using System.Speech.Recognition;
 using System.Threading.Tasks;
 using System.Globalization;
 using static PtxBuddy.FrmChatBoxDwn;
@@ -33,7 +33,7 @@ namespace PtxBuddy
         private IWindowPluginHost m_host;
         private string m_selectedText;
 
-       // private SpeechRecognitionEngine recognizer;
+        private SpeechRecognitionEngine recognizer;
         #endregion
 
         #region Constructor
@@ -421,7 +421,7 @@ namespace PtxBuddy
             chatArea.Controls.Add(wrapperPanel);
             chatArea.ScrollControlIntoView(wrapperPanel);
 
-           
+            chatArea.ScrollControlIntoView(typingIndicatorPanel);
 
         }
 
@@ -1038,6 +1038,12 @@ namespace PtxBuddy
 
                             // Add to chat area with Markdown formatting
                             AddChatBubble("AI", message, Color.LightGray);
+                            txtPrompt.Text = "";
+                            if (string.IsNullOrWhiteSpace(txtPrompt.Text))
+                            {
+                                txtPrompt.Text = "Type here...";
+                                txtPrompt.ForeColor = Color.Gray;
+                            }
                         }
                     }
                     catch (Exception ex)
@@ -1240,51 +1246,51 @@ namespace PtxBuddy
         }
         private void btnMic_Click(object sender, EventArgs e)
         {
-          //  Label listeningLabel = new Label
-          //  {
-          //      Text = "🎙️ Listening...",
-          //      AutoSize = true,
-          //      Font = new Font("Segoe UI", 10, FontStyle.Italic),
-          //      ForeColor = Color.DarkGray,
-          //      BackColor = Color.Transparent,
-          //      Location = new Point(btnMic.Left, btnMic.Top - 25), // adjust as needed
-          //      Visible = false
-          //  };
-          //  this.Controls.Add(listeningLabel);
-          //  if (recognizer == null)
-          //  {
-          //      listeningLabel.Visible = true;
-          //      recognizer = new SpeechRecognitionEngine();
-          //      recognizer.SetInputToDefaultAudioDevice();
-          //      recognizer.LoadGrammar(new DictationGrammar());
+            Label listeningLabel = new Label
+            {
+                Text = "🎙️ Listening...",
+                AutoSize = true,
+                Font = new Font("Segoe UI", 10, FontStyle.Italic),
+                ForeColor = Color.DarkGray,
+                BackColor = Color.Transparent,
+                Location = new Point(btnMic.Left, btnMic.Top - 25), // adjust as needed
+                Visible = false
+            };
+            this.Controls.Add(listeningLabel);
+            if (recognizer == null)
+            {
+                listeningLabel.Visible = true;
+                recognizer = new SpeechRecognitionEngine();
+                recognizer.SetInputToDefaultAudioDevice();
+                recognizer.LoadGrammar(new DictationGrammar());
 
-          //      recognizer.SpeechRecognized += (s, args) =>
-          //      {
-          //          string spokenText = args.Result.Text;
-          //          Invoke(new Action(() =>
-          //          {
-          //              txtPrompt.Text = spokenText; // or auto-send
-          //              txtPrompt.Focus();
-          //          }));
-          //      };
+                recognizer.SpeechRecognized += (s, args) =>
+                {
+                    string spokenText = args.Result.Text;
+                    Invoke(new Action(() =>
+                    {
+                        txtPrompt.Text = spokenText; // or auto-send
+                        txtPrompt.Focus();
+                    }));
+                };
 
-          //      recognizer.RecognizeCompleted += (s, args) =>
-          //      {
-          //          recognizer.Dispose();
-          //          recognizer = null;
-          //      };
-          //  }
+                recognizer.RecognizeCompleted += (s, args) =>
+                {
+                    recognizer.Dispose();
+                    recognizer = null;
+                };
+            }
 
-          //  try
-          //  {
-          //      recognizer.RecognizeAsync(RecognizeMode.Single);
-          //  }
-          //  catch (InvalidOperationException)
-          //  {
-          //      // Already listening
-          //  }
-          ////  await Task.Delay(3000); // or after SpeechRecognized event
-          //  listeningLabel.Visible = false;
+            try
+            {
+                recognizer.RecognizeAsync(RecognizeMode.Single);
+            }
+            catch (InvalidOperationException)
+            {
+                // Already listening
+            }
+            //  await Task.Delay(3000); // or after SpeechRecognized event
+            listeningLabel.Visible = false;
         }
     }
 

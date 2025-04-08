@@ -192,6 +192,7 @@ namespace PtxBuddy
             this.txtPrompt.Name = "txtPrompt";
             this.txtPrompt.Size = new System.Drawing.Size(401, 49);
             this.txtPrompt.TabIndex = 5;
+            this.txtPrompt.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPrompt_KeyDown);
             // 
             // panel1
             // 
